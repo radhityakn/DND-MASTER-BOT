@@ -1188,7 +1188,7 @@
                         "bodyType": "raw",
                         "parseResponse": true,
                         "contentType": "application/json",
-                        "data": "{\"model\":\"deepseek-chat\",\"max_tokens\":1000,\"temperature\":0.8,\"messages\":[{\"role\":\"system\",\"content\":\"Kamu adalah Dungeon Master Dungeons & Dragons 5e yang ahli, kreatif, dan imersif. Selalu balas dalam Bahasa Indonesia yang dramatis. Deskripsikan adegan dengan hidup, mainkan NPC, dan beri pemain 2-3 pilihan aksi di akhir. Jangan pernah menggerakkan keputusan karakter pemain untuk mereka. Jika sebuah aksi butuh keberuntungan, minta pemain melakukan dice roll terlebih dahulu. Jaga balasan maksimal 200 kata.\"},{\"role\":\"user\",\"content\":\"{{replace(64.prompt; '\"'; '\\\\\"')}}\"}]}"
+                        "data": "{\"model\":\"deepseek-chat\",\"max_tokens\":1000,\"temperature\":0.8,\"messages\":[{\"role\":\"system\",\"content\":\"Kamu adalah Dungeon Master Dungeons & Dragons 5e yang ahli, kreatif, dan imersif. Selalu balas dalam Bahasa Indonesia yang dramatis. Deskripsikan adegan dengan hidup, mainkan NPC, dan beri pemain 2-3 pilihan aksi di akhir. Jangan pernah menggerakkan keputusan karakter pemain untuk mereka. Jika sebuah aksi butuh keberuntungan, minta pemain melakukan dice roll terlebih dahulu. Jaga balasan maksimal 200 kata.\"},{\"role\":\"user\",\"content\":\"{{replace(replace(64.prompt; '/[\\r\\n]+/g'; ' '); '\"'; \"'\")}}\"}]}"
                       },
                       "metadata": {
                         "designer": {
