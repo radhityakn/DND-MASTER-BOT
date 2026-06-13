@@ -269,14 +269,17 @@
                                   "15": "{{13.r5}}",
                                   "16": "{{13.r6}}",
                                   "17": "2",
-                                  "18": "Backpack,Ration x3,Torch x3,10gp",
-                                  "19": "",
-                                  "20": "0",
-                                  "21": "0",
-                                  "22": "0",
-                                  "23": "Folk Hero",
-                                  "24": "True Neutral",
-                                  "25": "alive"
+                                  "18": "",
+                                  "19": "Backpack,Ration x3,Torch x3,10gp",
+                                  "20": "",
+                                  "21": "",
+                                  "22": "",
+                                  "23": "0",
+                                  "24": "0",
+                                  "25": "0",
+                                  "26": "Folk Hero",
+                                  "27": "True Neutral",
+                                  "28": "alive"
                                 }
                               },
                               "metadata": {
@@ -741,14 +744,17 @@
                           "15": "{{40.wis}}",
                           "16": "{{40.cha}}",
                           "17": "{{40.proficiency_bonus}}",
-                          "18": "{{40.inventory}}",
-                          "19": "{{40.conditions}}",
-                          "20": "{{40.death_saves_success}}",
-                          "21": "{{40.death_saves_fail}}",
-                          "22": "{{40.xp_total}}",
-                          "23": "{{40.background}}",
-                          "24": "{{40.alignment}}",
-                          "25": "{{40.character_status}}"
+                          "18": "{{40.skills_prof}}",
+                          "19": "{{40.inventory}}",
+                          "20": "{{40.spells_known}}",
+                          "21": "{{40.spell_slots}}",
+                          "22": "{{40.conditions}}",
+                          "23": "{{40.death_saves_success}}",
+                          "24": "{{40.death_saves_fail}}",
+                          "25": "{{40.xp_total}}",
+                          "26": "{{40.background}}",
+                          "27": "{{40.alignment}}",
+                          "28": "{{40.character_status}}"
                         }
                       },
                       "metadata": {
@@ -856,14 +862,17 @@
                           "15": "{{45.wis}}",
                           "16": "{{45.cha}}",
                           "17": "{{45.proficiency_bonus}}",
-                          "18": "{{45.inventory}}",
-                          "19": "",
-                          "20": "0",
-                          "21": "0",
-                          "22": "{{45.xp_total}}",
-                          "23": "{{45.background}}",
-                          "24": "{{45.alignment}}",
-                          "25": "{{45.character_status}}"
+                          "18": "{{45.skills_prof}}",
+                          "19": "{{45.inventory}}",
+                          "20": "{{45.spells_known}}",
+                          "21": "{{45.spell_slots}}",
+                          "22": "",
+                          "23": "0",
+                          "24": "0",
+                          "25": "{{45.xp_total}}",
+                          "26": "{{45.background}}",
+                          "27": "{{45.alignment}}",
+                          "28": "{{45.character_status}}"
                         }
                       },
                       "metadata": {
