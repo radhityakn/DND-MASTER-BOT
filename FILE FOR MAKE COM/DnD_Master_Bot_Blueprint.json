@@ -758,11 +758,11 @@
                           },
                           {
                             "name": "con_mod",
-                            "value": "{{floor((toNumber(40.con) - 10) / 2)}}"
+                            "value": "{{floor((40.con - 10) / 2)}}"
                           },
                           {
                             "name": "new_hp",
-                            "value": "{{min(toNumber(40.hp_max); toNumber(40.hp_current) + max(1; floor(random * 10) + 1 + floor((toNumber(40.con) - 10) / 2)))}}"
+                            "value": "{{min(40.hp_max; 40.hp_current + max(1; floor(random * 10) + 1 + floor((40.con - 10) / 2)))}}"
                           }
                         ],
                         "scope": "roundtrip"
@@ -1154,7 +1154,7 @@
                         "variables": [
                           {
                             "name": "prompt",
-                            "value": "SCENE: {{ifempty(62.scene_name; 'Awal petualangan')}} | {{ifempty(62.location_desc; 'Belum ada lokasi, mulai adegan baru.')}}\nMusuh: {{62.enemies_json}}\nClue: {{62.key_clues}}\nDM Notes: {{62.dm_notes}}\n\nKARAKTER: {{60.char_name}} | {{60.race}} {{60.class}} Lv{{60.level}}\nHP:{{60.hp_current}}/{{60.hp_max}} AC:{{60.ac}}\nSTR:{{60.str}}({{floor((toNumber(60.str) - 10) / 2)}}) DEX:{{60.dex}}({{floor((toNumber(60.dex) - 10) / 2)}}) CON:{{60.con}}({{floor((toNumber(60.con) - 10) / 2)}})\nINT:{{60.int}}({{floor((toNumber(60.int) - 10) / 2)}}) WIS:{{60.wis}}({{floor((toNumber(60.wis) - 10) / 2)}}) CHA:{{60.cha}}({{floor((toNumber(60.cha) - 10) / 2)}})\nInventory:{{60.inventory}}\nKondisi:{{ifempty(60.conditions; 'Normal')}}\n\nHISTORY TERAKHIR:\n{{63.username}} ({{63.char_name}}): {{63.player_message}}\nDM: {{63.dm_response}}\n\nPESAN PEMAIN @{{3.username}} ({{60.char_name}}): \"{{3.text}}\""
+                            "value": "SCENE: {{ifempty(62.scene_name; 'Awal petualangan')}} | {{ifempty(62.location_desc; 'Belum ada lokasi, mulai adegan baru.')}}\nMusuh: {{62.enemies_json}}\nClue: {{62.key_clues}}\nDM Notes: {{62.dm_notes}}\n\nKARAKTER: {{60.char_name}} | {{60.race}} {{60.class}} Lv{{60.level}}\nHP:{{60.hp_current}}/{{60.hp_max}} AC:{{60.ac}}\nSTR:{{60.str}}({{floor((60.str - 10) / 2)}}) DEX:{{60.dex}}({{floor((60.dex - 10) / 2)}}) CON:{{60.con}}({{floor((60.con - 10) / 2)}})\nINT:{{60.int}}({{floor((60.int - 10) / 2)}}) WIS:{{60.wis}}({{floor((60.wis - 10) / 2)}}) CHA:{{60.cha}}({{floor((60.cha - 10) / 2)}})\nInventory:{{60.inventory}}\nKondisi:{{ifempty(60.conditions; 'Normal')}}\n\nHISTORY TERAKHIR:\n{{63.username}} ({{63.char_name}}): {{63.player_message}}\nDM: {{63.dm_response}}\n\nPESAN PEMAIN @{{3.username}} ({{60.char_name}}): \"{{3.text}}\""
                           }
                         ],
                         "scope": "roundtrip"
