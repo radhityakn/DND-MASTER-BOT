@@ -1,0 +1,1231 @@
+{
+  "name": "DnD Master Bot",
+  "flow": [
+    {
+      "id": 1,
+      "module": "telegram:WatchUpdates",
+      "version": 1,
+      "parameters": {
+        "limit": 1
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0
+        },
+        "restore": {
+          "parameters": {
+            "__IMTHOOK__": {
+              "data": {},
+              "label": "Choose a hook (your DnD bot)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTHOOK__",
+            "type": "hook:telegramapi",
+            "label": "Webhook"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "label": "Limit"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "parameters": {},
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0
+        }
+      },
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 3,
+              "module": "util:SetVariables",
+              "version": 1,
+              "parameters": {},
+              "mapper": {
+                "variables": [
+                  {
+                    "name": "player_id",
+                    "value": "{{1.message.from.id}}"
+                  },
+                  {
+                    "name": "chat_id",
+                    "value": "{{1.message.chat.id}}"
+                  },
+                  {
+                    "name": "username",
+                    "value": "{{ifempty(1.message.from.username; 1.message.from.first_name)}}"
+                  },
+                  {
+                    "name": "text",
+                    "value": "{{1.message.text}}"
+                  }
+                ],
+                "scope": "roundtrip"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 600,
+                  "y": 0
+                }
+              }
+            },
+            {
+              "id": 4,
+              "module": "builtin:BasicRouter",
+              "version": 1,
+              "parameters": {},
+              "mapper": {},
+              "metadata": {
+                "designer": {
+                  "x": 900,
+                  "y": 0
+                }
+              },
+              "routes": [
+                {
+                  "flow": [
+                    {
+                      "id": 10,
+                      "module": "google-sheets:searchRows",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "campaigns",
+                        "includesHeaders": true,
+                        "filter": [
+                          [
+                            {
+                              "a": "chat_id",
+                              "b": "{{3.chat_id}}",
+                              "o": "text:equal"
+                            }
+                          ]
+                        ],
+                        "sortOrder": "asc",
+                        "limit": 1
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1200,
+                          "y": -400
+                        },
+                        "restore": {
+                          "parameters": {
+                            "__IMTCONN__": {
+                              "label": "Google Sheets connection"
+                            }
+                          }
+                        },
+                        "parameters": [
+                          {
+                            "name": "__IMTCONN__",
+                            "type": "account",
+                            "label": "Connection",
+                            "required": true
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": 11,
+                      "module": "google-sheets:searchRows",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "characters",
+                        "includesHeaders": true,
+                        "filter": [
+                          [
+                            {
+                              "a": "player_id",
+                              "b": "{{3.player_id}}",
+                              "o": "text:equal"
+                            }
+                          ]
+                        ],
+                        "sortOrder": "asc",
+                        "limit": 1
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1500,
+                          "y": -400
+                        }
+                      }
+                    },
+                    {
+                      "id": 12,
+                      "module": "builtin:BasicRouter",
+                      "version": 1,
+                      "parameters": {},
+                      "mapper": {},
+                      "metadata": {
+                        "designer": {
+                          "x": 1800,
+                          "y": -400
+                        }
+                      },
+                      "routes": [
+                        {
+                          "flow": [
+                            {
+                              "id": 13,
+                              "module": "util:SetVariables",
+                              "version": 1,
+                              "parameters": {},
+                              "mapper": {
+                                "variables": [
+                                  {
+                                    "name": "r1",
+                                    "value": "{{floor(random * 6) + 1 + floor(random * 6) + 1 + floor(random * 6) + 1}}"
+                                  },
+                                  {
+                                    "name": "r2",
+                                    "value": "{{floor(random * 6) + 1 + floor(random * 6) + 1 + floor(random * 6) + 1}}"
+                                  },
+                                  {
+                                    "name": "r3",
+                                    "value": "{{floor(random * 6) + 1 + floor(random * 6) + 1 + floor(random * 6) + 1}}"
+                                  },
+                                  {
+                                    "name": "r4",
+                                    "value": "{{floor(random * 6) + 1 + floor(random * 6) + 1 + floor(random * 6) + 1}}"
+                                  },
+                                  {
+                                    "name": "r5",
+                                    "value": "{{floor(random * 6) + 1 + floor(random * 6) + 1 + floor(random * 6) + 1}}"
+                                  },
+                                  {
+                                    "name": "r6",
+                                    "value": "{{floor(random * 6) + 1 + floor(random * 6) + 1 + floor(random * 6) + 1}}"
+                                  },
+                                  {
+                                    "name": "campaign_id",
+                                    "value": "{{ifempty(10.campaign_id; 3.chat_id)}}"
+                                  }
+                                ],
+                                "scope": "roundtrip"
+                              },
+                              "metadata": {
+                                "designer": {
+                                  "x": 2100,
+                                  "y": -600
+                                }
+                              }
+                            },
+                            {
+                              "id": 14,
+                              "module": "google-sheets:addRow",
+                              "version": 2,
+                              "parameters": {
+                                "__IMTCONN__": 1
+                              },
+                              "mapper": {
+                                "mode": "select",
+                                "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                                "sheetId": "characters",
+                                "includesHeaders": true,
+                                "insertDataOption": "INSERT_ROWS",
+                                "valueInputOption": "USER_ENTERED",
+                                "values": {
+                                  "0": "{{formatDate(now; 'x')}}",
+                                  "1": "{{3.player_id}}",
+                                  "2": "{{13.campaign_id}}",
+                                  "3": "{{3.username}}",
+                                  "4": "Adventurer",
+                                  "5": "Human",
+                                  "6": "Fighter",
+                                  "7": "1",
+                                  "8": "10",
+                                  "9": "10",
+                                  "10": "10",
+                                  "11": "{{13.r1}}",
+                                  "12": "{{13.r2}}",
+                                  "13": "{{13.r3}}",
+                                  "14": "{{13.r4}}",
+                                  "15": "{{13.r5}}",
+                                  "16": "{{13.r6}}",
+                                  "17": "2",
+                                  "18": "Backpack,Ration x3,Torch x3,10gp",
+                                  "19": "",
+                                  "20": "0",
+                                  "21": "0",
+                                  "22": "0",
+                                  "23": "Folk Hero",
+                                  "24": "True Neutral",
+                                  "25": "alive"
+                                }
+                              },
+                              "metadata": {
+                                "designer": {
+                                  "x": 2400,
+                                  "y": -600
+                                }
+                              }
+                            },
+                            {
+                              "id": 15,
+                              "module": "telegram:SendReplyMessage",
+                              "version": 1,
+                              "parameters": {
+                                "__IMTCONN__": 2
+                              },
+                              "mapper": {
+                                "chatId": "{{3.chat_id}}",
+                                "text": "✅ Karakter berhasil dibuat!\nSelamat datang @{{3.username}}!\n\nStats karaktermu:\nSTR:{{13.r1}} DEX:{{13.r2}} CON:{{13.r3}}\nINT:{{13.r4}} WIS:{{13.r5}} CHA:{{13.r6}}\n\nKetik /status untuk lihat karakter lengkap, atau langsung kirim pesan untuk mulai bermain!",
+                                "parseMode": ""
+                              },
+                              "metadata": {
+                                "designer": {
+                                  "x": 2700,
+                                  "y": -600
+                                },
+                                "restore": {
+                                  "parameters": {
+                                    "__IMTCONN__": {
+                                      "label": "Telegram Bot connection"
+                                    }
+                                  }
+                                },
+                                "parameters": [
+                                  {
+                                    "name": "__IMTCONN__",
+                                    "type": "account",
+                                    "label": "Connection",
+                                    "required": true
+                                  }
+                                ]
+                              }
+                            }
+                          ],
+                          "filter": {
+                            "name": "No Character Yet",
+                            "conditions": [
+                              [
+                                {
+                                  "a": "{{11.char_id}}",
+                                  "o": "text:notexist"
+                                }
+                              ]
+                            ]
+                          }
+                        },
+                        {
+                          "flow": [
+                            {
+                              "id": 16,
+                              "module": "telegram:SendReplyMessage",
+                              "version": 1,
+                              "parameters": {
+                                "__IMTCONN__": 2
+                              },
+                              "mapper": {
+                                "chatId": "{{3.chat_id}}",
+                                "text": "⚔️ Kamu sudah punya karakter! Ketik /status untuk melihatnya.",
+                                "parseMode": ""
+                              },
+                              "metadata": {
+                                "designer": {
+                                  "x": 2100,
+                                  "y": -200
+                                }
+                              }
+                            }
+                          ],
+                          "filter": {
+                            "name": "Already Has Character",
+                            "conditions": [
+                              [
+                                {
+                                  "a": "{{11.char_id}}",
+                                  "o": "text:exist"
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "filter": {
+                    "name": "join",
+                    "conditions": [
+                      [
+                        {
+                          "a": "{{3.text}}",
+                          "b": "/join",
+                          "o": "text:startswith"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "flow": [
+                    {
+                      "id": 20,
+                      "module": "google-sheets:searchRows",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "characters",
+                        "includesHeaders": true,
+                        "filter": [
+                          [
+                            {
+                              "a": "player_id",
+                              "b": "{{3.player_id}}",
+                              "o": "text:equal"
+                            }
+                          ]
+                        ],
+                        "sortOrder": "asc",
+                        "limit": 1
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1200,
+                          "y": -200
+                        }
+                      }
+                    },
+                    {
+                      "id": 21,
+                      "module": "telegram:SendReplyMessage",
+                      "version": 1,
+                      "parameters": {
+                        "__IMTCONN__": 2
+                      },
+                      "mapper": {
+                        "chatId": "{{3.chat_id}}",
+                        "text": "📊 Status {{20.char_name}}\n━━━━━━━━━━━━━━━━\n🏆 {{20.race}} {{20.class}} Lv.{{20.level}}\n❤️ HP: {{20.hp_current}}/{{20.hp_max}}\n🛡️ AC: {{20.ac}}\n━━━━━━━━━━━━━━━━\nSTR:{{20.str}} DEX:{{20.dex}} CON:{{20.con}}\nINT:{{20.int}} WIS:{{20.wis}} CHA:{{20.cha}}\n━━━━━━━━━━━━━━━━\nKondisi: {{ifempty(20.conditions; 'Normal')}}\nXP: {{20.xp_total}}",
+                        "parseMode": ""
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1500,
+                          "y": -200
+                        }
+                      }
+                    }
+                  ],
+                  "filter": {
+                    "name": "status",
+                    "conditions": [
+                      [
+                        {
+                          "a": "{{3.text}}",
+                          "b": "/status",
+                          "o": "text:startswith"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "flow": [
+                    {
+                      "id": 25,
+                      "module": "google-sheets:searchRows",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "characters",
+                        "includesHeaders": true,
+                        "filter": [
+                          [
+                            {
+                              "a": "player_id",
+                              "b": "{{3.player_id}}",
+                              "o": "text:equal"
+                            }
+                          ]
+                        ],
+                        "sortOrder": "asc",
+                        "limit": 1
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1200,
+                          "y": 0
+                        }
+                      }
+                    },
+                    {
+                      "id": 26,
+                      "module": "telegram:SendReplyMessage",
+                      "version": 1,
+                      "parameters": {
+                        "__IMTCONN__": 2
+                      },
+                      "mapper": {
+                        "chatId": "{{3.chat_id}}",
+                        "text": "🎒 Inventory {{25.char_name}}:\n• {{replace(25.inventory; \",\"; \"\n• \")}}",
+                        "parseMode": ""
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1500,
+                          "y": 0
+                        }
+                      }
+                    }
+                  ],
+                  "filter": {
+                    "name": "inventory",
+                    "conditions": [
+                      [
+                        {
+                          "a": "{{3.text}}",
+                          "b": "/inventory",
+                          "o": "text:startswith"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "flow": [
+                    {
+                      "id": 30,
+                      "module": "google-sheets:searchRows",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "characters",
+                        "includesHeaders": true,
+                        "filter": [
+                          [
+                            {
+                              "a": "campaign_id",
+                              "b": "{{3.chat_id}}",
+                              "o": "text:equal"
+                            }
+                          ]
+                        ],
+                        "sortOrder": "asc",
+                        "limit": 10
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1200,
+                          "y": 200
+                        }
+                      }
+                    },
+                    {
+                      "id": 32,
+                      "module": "telegram:SendReplyMessage",
+                      "version": 1,
+                      "parameters": {
+                        "__IMTCONN__": 2
+                      },
+                      "mapper": {
+                        "chatId": "{{3.chat_id}}",
+                        "text": "👥 Party:\n⚔️ {{30.char_name}} ({{30.race}} {{30.class}} Lv.{{30.level}}) HP:{{30.hp_current}}/{{30.hp_max}}",
+                        "parseMode": ""
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1500,
+                          "y": 200
+                        }
+                      }
+                    }
+                  ],
+                  "filter": {
+                    "name": "party",
+                    "conditions": [
+                      [
+                        {
+                          "a": "{{3.text}}",
+                          "b": "/party",
+                          "o": "text:startswith"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "flow": [
+                    {
+                      "id": 35,
+                      "module": "google-sheets:searchRows",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "scenes",
+                        "includesHeaders": true,
+                        "filter": [
+                          [
+                            {
+                              "a": "campaign_id",
+                              "b": "{{3.chat_id}}",
+                              "o": "text:equal"
+                            }
+                          ]
+                        ],
+                        "sortOrder": "desc",
+                        "limit": 1
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1200,
+                          "y": 400
+                        }
+                      }
+                    },
+                    {
+                      "id": 37,
+                      "module": "telegram:SendReplyMessage",
+                      "version": 1,
+                      "parameters": {
+                        "__IMTCONN__": 2
+                      },
+                      "mapper": {
+                        "chatId": "{{3.chat_id}}",
+                        "text": "🗺️ {{ifempty(35.scene_name; 'Belum ada scene')}}\n━━━━━━━━━━━━━━━━\n📍 {{ifempty(35.location_desc; 'Kirim pesan biasa untuk memulai petualanganmu, DM akan menyiapkan adegan.')}}",
+                        "parseMode": ""
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1500,
+                          "y": 400
+                        }
+                      }
+                    }
+                  ],
+                  "filter": {
+                    "name": "scene",
+                    "conditions": [
+                      [
+                        {
+                          "a": "{{3.text}}",
+                          "b": "/scene",
+                          "o": "text:startswith"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "flow": [
+                    {
+                      "id": 40,
+                      "module": "google-sheets:searchRows",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "characters",
+                        "includesHeaders": true,
+                        "filter": [
+                          [
+                            {
+                              "a": "player_id",
+                              "b": "{{3.player_id}}",
+                              "o": "text:equal"
+                            }
+                          ]
+                        ],
+                        "sortOrder": "asc",
+                        "limit": 1
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1200,
+                          "y": 600
+                        }
+                      }
+                    },
+                    {
+                      "id": 41,
+                      "module": "util:SetVariables",
+                      "version": 1,
+                      "parameters": {},
+                      "mapper": {
+                        "variables": [
+                          {
+                            "name": "roll",
+                            "value": "{{floor(random * 10) + 1}}"
+                          },
+                          {
+                            "name": "con_mod",
+                            "value": "{{floor((toNumber(40.con) - 10) / 2)}}"
+                          },
+                          {
+                            "name": "new_hp",
+                            "value": "{{min(toNumber(40.hp_max); toNumber(40.hp_current) + max(1; floor(random * 10) + 1 + floor((toNumber(40.con) - 10) / 2)))}}"
+                          }
+                        ],
+                        "scope": "roundtrip"
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1500,
+                          "y": 600
+                        }
+                      }
+                    },
+                    {
+                      "id": 42,
+                      "module": "google-sheets:updateRow",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "characters",
+                        "includesHeaders": true,
+                        "rowNumber": "{{40.__ROW_NUMBER__}}",
+                        "values": {
+                          "0": "{{40.char_id}}",
+                          "1": "{{40.player_id}}",
+                          "2": "{{40.campaign_id}}",
+                          "3": "{{40.username}}",
+                          "4": "{{40.char_name}}",
+                          "5": "{{40.race}}",
+                          "6": "{{40.class}}",
+                          "7": "{{40.level}}",
+                          "8": "{{40.hp_max}}",
+                          "9": "{{41.new_hp}}",
+                          "10": "{{40.ac}}",
+                          "11": "{{40.str}}",
+                          "12": "{{40.dex}}",
+                          "13": "{{40.con}}",
+                          "14": "{{40.int}}",
+                          "15": "{{40.wis}}",
+                          "16": "{{40.cha}}",
+                          "17": "{{40.proficiency_bonus}}",
+                          "18": "{{40.inventory}}",
+                          "19": "{{40.conditions}}",
+                          "20": "{{40.death_saves_success}}",
+                          "21": "{{40.death_saves_fail}}",
+                          "22": "{{40.xp_total}}",
+                          "23": "{{40.background}}",
+                          "24": "{{40.alignment}}",
+                          "25": "{{40.character_status}}"
+                        }
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1800,
+                          "y": 600
+                        }
+                      }
+                    },
+                    {
+                      "id": 43,
+                      "module": "telegram:SendReplyMessage",
+                      "version": 1,
+                      "parameters": {
+                        "__IMTCONN__": 2
+                      },
+                      "mapper": {
+                        "chatId": "{{3.chat_id}}",
+                        "text": "😴 {{40.char_name}} beristirahat sejenak...\n🎲 Hit Die roll + CON mod ({{41.con_mod}})\n❤️ HP sekarang: {{41.new_hp}}/{{40.hp_max}}",
+                        "parseMode": ""
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 2100,
+                          "y": 600
+                        }
+                      }
+                    }
+                  ],
+                  "filter": {
+                    "name": "shortrest",
+                    "conditions": [
+                      [
+                        {
+                          "a": "{{3.text}}",
+                          "b": "/shortrest",
+                          "o": "text:startswith"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "flow": [
+                    {
+                      "id": 45,
+                      "module": "google-sheets:searchRows",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "characters",
+                        "includesHeaders": true,
+                        "filter": [
+                          [
+                            {
+                              "a": "player_id",
+                              "b": "{{3.player_id}}",
+                              "o": "text:equal"
+                            }
+                          ]
+                        ],
+                        "sortOrder": "asc",
+                        "limit": 1
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1200,
+                          "y": 800
+                        }
+                      }
+                    },
+                    {
+                      "id": 46,
+                      "module": "google-sheets:updateRow",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "characters",
+                        "includesHeaders": true,
+                        "rowNumber": "{{45.__ROW_NUMBER__}}",
+                        "values": {
+                          "0": "{{45.char_id}}",
+                          "1": "{{45.player_id}}",
+                          "2": "{{45.campaign_id}}",
+                          "3": "{{45.username}}",
+                          "4": "{{45.char_name}}",
+                          "5": "{{45.race}}",
+                          "6": "{{45.class}}",
+                          "7": "{{45.level}}",
+                          "8": "{{45.hp_max}}",
+                          "9": "{{45.hp_max}}",
+                          "10": "{{45.ac}}",
+                          "11": "{{45.str}}",
+                          "12": "{{45.dex}}",
+                          "13": "{{45.con}}",
+                          "14": "{{45.int}}",
+                          "15": "{{45.wis}}",
+                          "16": "{{45.cha}}",
+                          "17": "{{45.proficiency_bonus}}",
+                          "18": "{{45.inventory}}",
+                          "19": "",
+                          "20": "0",
+                          "21": "0",
+                          "22": "{{45.xp_total}}",
+                          "23": "{{45.background}}",
+                          "24": "{{45.alignment}}",
+                          "25": "{{45.character_status}}"
+                        }
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1500,
+                          "y": 800
+                        }
+                      }
+                    },
+                    {
+                      "id": 47,
+                      "module": "telegram:SendReplyMessage",
+                      "version": 1,
+                      "parameters": {
+                        "__IMTCONN__": 2
+                      },
+                      "mapper": {
+                        "chatId": "{{3.chat_id}}",
+                        "text": "🌙 {{45.char_name}} beristirahat panjang!\n✨ HP pulih penuh!\n❤️ HP: {{45.hp_max}}/{{45.hp_max}}\n💤 Semua kondisi & kemampuan pulih kembali.",
+                        "parseMode": ""
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1800,
+                          "y": 800
+                        }
+                      }
+                    }
+                  ],
+                  "filter": {
+                    "name": "longrest",
+                    "conditions": [
+                      [
+                        {
+                          "a": "{{3.text}}",
+                          "b": "/longrest",
+                          "o": "text:startswith"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "flow": [
+                    {
+                      "id": 50,
+                      "module": "telegram:SendReplyMessage",
+                      "version": 1,
+                      "parameters": {
+                        "__IMTCONN__": 2
+                      },
+                      "mapper": {
+                        "chatId": "{{3.chat_id}}",
+                        "text": "📖 Daftar Command DnD Bot:\n━━━━━━━━━━━━━━━━\n/join - Buat karakter baru\n/status - Lihat stats karaktermu\n/inventory - Lihat isi tasmu\n/party - Lihat status seluruh party\n/scene - Lihat lokasi saat ini\n/shortrest - Istirahat singkat (roll Hit Die)\n/longrest - Istirahat panjang (HP full)\n/help - Tampilkan pesan ini\n━━━━━━━━━━━━━━━━\n💬 Kirim pesan biasa untuk bermain bersama DM!",
+                        "parseMode": ""
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1200,
+                          "y": 1000
+                        }
+                      }
+                    }
+                  ],
+                  "filter": {
+                    "name": "help",
+                    "conditions": [
+                      [
+                        {
+                          "a": "{{3.text}}",
+                          "b": "/help",
+                          "o": "text:startswith"
+                        }
+                      ],
+                      [
+                        {
+                          "a": "{{3.text}}",
+                          "b": "/start",
+                          "o": "text:startswith"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "flow": [
+                    {
+                      "id": 60,
+                      "module": "google-sheets:searchRows",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "characters",
+                        "includesHeaders": true,
+                        "filter": [
+                          [
+                            {
+                              "a": "player_id",
+                              "b": "{{3.player_id}}",
+                              "o": "text:equal"
+                            }
+                          ]
+                        ],
+                        "sortOrder": "asc",
+                        "limit": 1
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1200,
+                          "y": 1200
+                        }
+                      }
+                    },
+                    {
+                      "id": 62,
+                      "module": "google-sheets:searchRows",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "scenes",
+                        "includesHeaders": true,
+                        "filter": [
+                          [
+                            {
+                              "a": "campaign_id",
+                              "b": "{{3.chat_id}}",
+                              "o": "text:equal"
+                            }
+                          ]
+                        ],
+                        "sortOrder": "desc",
+                        "limit": 1
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1500,
+                          "y": 1200
+                        }
+                      }
+                    },
+                    {
+                      "id": 63,
+                      "module": "google-sheets:searchRows",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "history",
+                        "includesHeaders": true,
+                        "filter": [
+                          [
+                            {
+                              "a": "campaign_id",
+                              "b": "{{3.chat_id}}",
+                              "o": "text:equal"
+                            }
+                          ]
+                        ],
+                        "sortOrder": "desc",
+                        "limit": 6
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1800,
+                          "y": 1200
+                        }
+                      }
+                    },
+                    {
+                      "id": 64,
+                      "module": "util:SetVariables",
+                      "version": 1,
+                      "parameters": {},
+                      "mapper": {
+                        "variables": [
+                          {
+                            "name": "str_mod",
+                            "value": "{{floor((toNumber(60.str) - 10) / 2)}}"
+                          },
+                          {
+                            "name": "dex_mod",
+                            "value": "{{floor((toNumber(60.dex) - 10) / 2)}}"
+                          },
+                          {
+                            "name": "con_mod",
+                            "value": "{{floor((toNumber(60.con) - 10) / 2)}}"
+                          },
+                          {
+                            "name": "int_mod",
+                            "value": "{{floor((toNumber(60.int) - 10) / 2)}}"
+                          },
+                          {
+                            "name": "wis_mod",
+                            "value": "{{floor((toNumber(60.wis) - 10) / 2)}}"
+                          },
+                          {
+                            "name": "cha_mod",
+                            "value": "{{floor((toNumber(60.cha) - 10) / 2)}}"
+                          },
+                          {
+                            "name": "prompt",
+                            "value": "SCENE: {{ifempty(62.scene_name; 'Awal petualangan')}} | {{ifempty(62.location_desc; 'Belum ada lokasi, mulai adegan baru.')}}\nMusuh: {{62.enemies_json}}\nClue: {{62.key_clues}}\nDM Notes: {{62.dm_notes}}\n\nKARAKTER: {{60.char_name}} | {{60.race}} {{60.class}} Lv{{60.level}}\nHP:{{60.hp_current}}/{{60.hp_max}} AC:{{60.ac}}\nSTR:{{60.str}}({{64.str_mod}}) DEX:{{60.dex}}({{64.dex_mod}}) CON:{{60.con}}({{64.con_mod}})\nINT:{{60.int}}({{64.int_mod}}) WIS:{{60.wis}}({{64.wis_mod}}) CHA:{{60.cha}}({{64.cha_mod}})\nInventory:{{60.inventory}}\nKondisi:{{ifempty(60.conditions; 'Normal')}}\n\nHISTORY TERAKHIR:\n{{63.username}} ({{63.char_name}}): {{63.player_message}}\nDM: {{63.dm_response}}\n\nPESAN PEMAIN @{{3.username}} ({{60.char_name}}): \"{{3.text}}\""
+                          }
+                        ],
+                        "scope": "roundtrip"
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 2100,
+                          "y": 1200
+                        }
+                      }
+                    },
+                    {
+                      "id": 65,
+                      "module": "http:ActionSendData",
+                      "version": 3,
+                      "parameters": {},
+                      "mapper": {
+                        "url": "https://api.deepseek.com/v1/chat/completions",
+                        "method": "post",
+                        "headers": [
+                          {
+                            "name": "Authorization",
+                            "value": "Bearer YOUR_DEEPSEEK_API_KEY"
+                          },
+                          {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "qs": [],
+                        "bodyType": "raw",
+                        "parseResponse": true,
+                        "contentType": "application/json",
+                        "data": "{\"model\":\"deepseek-chat\",\"max_tokens\":1000,\"temperature\":0.8,\"messages\":[{\"role\":\"system\",\"content\":\"Kamu adalah Dungeon Master Dungeons & Dragons 5e yang ahli, kreatif, dan imersif. Selalu balas dalam Bahasa Indonesia yang dramatis. Deskripsikan adegan dengan hidup, mainkan NPC, dan beri pemain 2-3 pilihan aksi di akhir. Jangan pernah menggerakkan keputusan karakter pemain untuk mereka. Jika sebuah aksi butuh keberuntungan, minta pemain melakukan dice roll terlebih dahulu. Jaga balasan maksimal 200 kata.\"},{\"role\":\"user\",\"content\":\"{{replace(64.prompt; '\"'; '\\\\\"')}}\"}]}"
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 2400,
+                          "y": 1200
+                        }
+                      }
+                    },
+                    {
+                      "id": 67,
+                      "module": "google-sheets:addRow",
+                      "version": 2,
+                      "parameters": {
+                        "__IMTCONN__": 1
+                      },
+                      "mapper": {
+                        "mode": "select",
+                        "spreadsheetId": "1j_79-CSDHDzbU--ye0mgKtlHv2e7k3c-eQpI_PHwWPk",
+                        "sheetId": "history",
+                        "includesHeaders": true,
+                        "insertDataOption": "INSERT_ROWS",
+                        "valueInputOption": "USER_ENTERED",
+                        "values": {
+                          "0": "{{formatDate(now; 'YYYY-MM-DD HH:mm:ss')}}",
+                          "1": "{{3.chat_id}}",
+                          "2": "{{ifempty(62.scene_id; '')}}",
+                          "3": "{{3.player_id}}",
+                          "4": "{{3.username}}",
+                          "5": "{{60.char_name}}",
+                          "6": "{{3.text}}",
+                          "7": "{{65.data.choices[].message.content}}",
+                          "8": "",
+                          "9": ""
+                        }
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 2700,
+                          "y": 1200
+                        }
+                      }
+                    },
+                    {
+                      "id": 68,
+                      "module": "telegram:SendReplyMessage",
+                      "version": 1,
+                      "parameters": {
+                        "__IMTCONN__": 2
+                      },
+                      "mapper": {
+                        "chatId": "{{3.chat_id}}",
+                        "text": "🎲 DM:\n\n{{65.data.choices[].message.content}}",
+                        "parseMode": ""
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 3000,
+                          "y": 1200
+                        }
+                      }
+                    }
+                  ],
+                  "filter": {
+                    "name": "game",
+                    "conditions": [
+                      [
+                        {
+                          "a": "{{3.text}}",
+                          "b": "/",
+                          "o": "text:notstartswith"
+                        }
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "filter": {
+            "name": "Valid Message",
+            "conditions": [
+              [
+                {
+                  "a": "{{1.message.from.is_bot}}",
+                  "o": "boolean:notequal",
+                  "b": "true"
+                },
+                {
+                  "a": "{{1.message.text}}",
+                  "o": "text:exist"
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "instant": true,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "eu2.make.com"
+  }
+}
