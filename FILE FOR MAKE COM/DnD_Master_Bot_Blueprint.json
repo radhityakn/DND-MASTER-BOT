@@ -101,7 +101,7 @@
                   "flow": [
                     {
                       "id": 10,
-                      "module": "google-sheets:searchRows",
+                      "module": "google-sheets:filterRows",
                       "version": 2,
                       "parameters": {
                         "__IMTCONN__": 1
@@ -147,7 +147,7 @@
                     },
                     {
                       "id": 11,
-                      "module": "google-sheets:searchRows",
+                      "module": "google-sheets:filterRows",
                       "version": 2,
                       "parameters": {
                         "__IMTCONN__": 1
@@ -387,7 +387,7 @@
                   "flow": [
                     {
                       "id": 20,
-                      "module": "google-sheets:searchRows",
+                      "module": "google-sheets:filterRows",
                       "version": 2,
                       "parameters": {
                         "__IMTCONN__": 1
@@ -453,7 +453,7 @@
                   "flow": [
                     {
                       "id": 25,
-                      "module": "google-sheets:searchRows",
+                      "module": "google-sheets:filterRows",
                       "version": 2,
                       "parameters": {
                         "__IMTCONN__": 1
@@ -519,7 +519,7 @@
                   "flow": [
                     {
                       "id": 30,
-                      "module": "google-sheets:searchRows",
+                      "module": "google-sheets:filterRows",
                       "version": 2,
                       "parameters": {
                         "__IMTCONN__": 1
@@ -585,7 +585,7 @@
                   "flow": [
                     {
                       "id": 35,
-                      "module": "google-sheets:searchRows",
+                      "module": "google-sheets:filterRows",
                       "version": 2,
                       "parameters": {
                         "__IMTCONN__": 1
@@ -651,7 +651,7 @@
                   "flow": [
                     {
                       "id": 40,
-                      "module": "google-sheets:searchRows",
+                      "module": "google-sheets:filterRows",
                       "version": 2,
                       "parameters": {
                         "__IMTCONN__": 1
@@ -795,7 +795,7 @@
                   "flow": [
                     {
                       "id": 45,
-                      "module": "google-sheets:searchRows",
+                      "module": "google-sheets:filterRows",
                       "version": 2,
                       "parameters": {
                         "__IMTCONN__": 1
@@ -952,7 +952,7 @@
                   "flow": [
                     {
                       "id": 60,
-                      "module": "google-sheets:searchRows",
+                      "module": "google-sheets:filterRows",
                       "version": 2,
                       "parameters": {
                         "__IMTCONN__": 1
@@ -983,7 +983,7 @@
                     },
                     {
                       "id": 62,
-                      "module": "google-sheets:searchRows",
+                      "module": "google-sheets:filterRows",
                       "version": 2,
                       "parameters": {
                         "__IMTCONN__": 1
@@ -1014,7 +1014,7 @@
                     },
                     {
                       "id": 63,
-                      "module": "google-sheets:searchRows",
+                      "module": "google-sheets:filterRows",
                       "version": 2,
                       "parameters": {
                         "__IMTCONN__": 1
